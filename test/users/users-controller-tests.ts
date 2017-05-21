@@ -7,19 +7,22 @@ import * as Database from "../../src/database";
 import * as Utils from "../utils";
 
 const configDb = Configs.getDatabaseConfig();
-const database = Database.init(configDb);
+let database;
 const assert = chai.assert;
 const serverConfig = Configs.getServerConfigs();
-const server = Server.init(serverConfig, database);
+let server;
 
-describe("UserController Tests", () => {
+xdescribe("UserController Tests", () => {
 
-    beforeEach((done) => {
-        Utils.createSeedUserData(database, done);
+    beforeEach(async() => {
+        database = Database.init(configDb);
+        server = await Server.init(serverConfig, database);
+        await server.start();
+        await Utils.createSeedUserData(database);
     });
 
-    afterEach((done) => {
-        Utils.clearDatabase(database, done);
+    afterEach(async() => {
+        await Utils.clearDatabase(database);
     });
 
     it("Create user", (done) => {

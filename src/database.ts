@@ -11,18 +11,15 @@ export interface IDatabase {
 export function init(config: IDataConfiguration): IDatabase {
 
     (<any>Mongoose).Promise = Promise;
-    Mongoose.connect(config.connectionString);
-
     let mongoDb = Mongoose.connection;
 
-    mongoDb.on('error', () => {
-        console.log(`Unable to connect to database: ${config.connectionString}`);
+    Mongoose.connect(config.connectionString, error => {
+        if (error) {
+            console.log(`Unable to connect to database: ${config.connectionString}`);
+        } else {
+            console.log(`Connected to database: ${config.connectionString}`);
+        }
     });
-
-    mongoDb.once('open', () => {
-        console.log(`Connected to database: ${config.connectionString}`);
-    });
-
     return {
         taskModel: TaskModel,
         userModel: UserModel

@@ -25,18 +25,14 @@ export function createUserDummy(email?: string) {
 }
 
 
-export function clearDatabase(database: Database.IDatabase, done: MochaDone) {
+export function clearDatabase(database: Database.IDatabase) {
     var promiseUser = database.userModel.remove({});
     var promiseTask = database.taskModel.remove({});
 
-    Promise.all([promiseUser, promiseTask]).then(() => {
-        done();
-    }).catch((error) => {
-        console.log(error);
-    });
+    return Promise.all([promiseUser, promiseTask]);
 }
 
-export function createSeedTaskData(database: Database.IDatabase, done: MochaDone) {
+export function createSeedTaskData(database: Database.IDatabase) {
     return database.userModel.create(createUserDummy())
         .then((user) => {
             return Promise.all([
@@ -44,20 +40,10 @@ export function createSeedTaskData(database: Database.IDatabase, done: MochaDone
                 database.taskModel.create(createTaskDummy(user._id, "Task 2", "Some dummy data 2")),
                 database.taskModel.create(createTaskDummy(user._id, "Task 3", "Some dummy data 3")),
             ]);
-        }).then((task) => {
-            done();
-        }).catch((error) => {
-            console.log(error);
         });
 }
 
-export function createSeedUserData(database: Database.IDatabase, done: MochaDone) {
-    database.userModel.create(createUserDummy())
-        .then((user) => {
-            done();
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+export function createSeedUserData(database: Database.IDatabase) {
+    return database.userModel.create(createUserDummy());
 }
 

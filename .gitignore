@@ -37,3 +37,6 @@ build
 #Ignore typings
 typings
 
+#misc
+.DS_Store
+

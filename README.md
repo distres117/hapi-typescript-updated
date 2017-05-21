@@ -6,6 +6,7 @@ Boilerplate template for node and typescript services.
 
 * *npm install*
 * you should have gulp installed globally
+* node ^7.6 required
 
 **Run**
 
@@ -26,6 +27,7 @@ Boilerplate template for node and typescript services.
 * *Mongoose - MongoDb*
 * *nconf - configurations*
 * *Unit Tests - chai + sinon + mocha*
+* *Implements asyc/await pattern*
 
 Running on port 5000 ex: localhost:5000/docs
 

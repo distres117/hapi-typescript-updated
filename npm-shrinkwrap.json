@@ -260,7 +260,7 @@
     },
     "bluebird": {
       "version": "2.10.2",
-      "from": "bluebird@2.10.2",
+      "from": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz",
       "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-2.10.2.tgz"
     },
     "boom": {

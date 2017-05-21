@@ -8,7 +8,7 @@ import MockFeature from './features/mocks';
 import { IDatabase } from "./database";
 
 
-export function init(configs: IServerConfigurations, database: IDatabase) {
+export async function init(configs: IServerConfigurations, database: IDatabase) {
     const port = process.env.port || configs.port;
     const server = new Hapi.Server();
 
@@ -43,9 +43,7 @@ export function init(configs: IServerConfigurations, database: IDatabase) {
         instances.push(new Feature(server, configs, database));
     });
 
-    Promise.all(promises)
-        .then(() => {
-            instances.forEach(instance=>instance.init());   
-        });
+    await Promise.all(promises);
+    instances.forEach(instance=>instance.init());   
     return server;
 };
