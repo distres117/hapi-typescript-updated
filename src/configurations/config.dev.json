@@ -9,7 +9,8 @@
         "plugins": [
             "logger",
             "swagger",
-            "jwt-auth"
+            "jwt-auth",
+            "auth-facebook"
         ]
     }
 }
