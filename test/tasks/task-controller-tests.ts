@@ -1,24 +1,21 @@
-import * as chai from "chai";
+import { SpecHelper } from './../test.helpers';
+import { IDatabase } from './../../src/database';
+import { assert } from "chai";
 import TaskController from "../../src/features/tasks/task-controller";
 import { ITask } from "../../src/features/tasks/task";
 import { IUser } from "../../src/features/users/user";
-import * as Configs from "../../src/configurations";
-import * as Server from "../../src/server";
-import * as Database from "../../src/database";
 import * as Utils from "../utils";
 import * as Hapi from 'hapi';
 
-const configDb = Configs.getDatabaseConfig();
-let database = Database.init(configDb);
-const assert = chai.assert;
-const serverConfig = Configs.getServerConfigs();
-let server: Hapi.Server;
-
-describe.only("TastController Tests", () => {
+let server:Hapi.Server;
+let database:IDatabase;
+describe("TastController Tests", () => {
 
     before(async () => {
-        server = await Server.init(serverConfig, database);
-        await server.start();
+        const helper = new SpecHelper();
+        await helper.start();
+        server = helper.server;
+        database = helper.database;
     });
     describe('Test controller', () => {
         beforeEach(async () => {
@@ -130,9 +127,6 @@ describe.only("TastController Tests", () => {
                     });
                 });
             });
-
-
-
         });
     });
 });
