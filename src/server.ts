@@ -1,9 +1,10 @@
+import { IFeature } from './features/interfaces';
 import * as Hapi from "hapi";
 import { IPlugin } from "./plugins/interfaces";
 import { IServerConfigurations } from "./configurations";
-import * as Tasks from "./features/tasks";
-import * as Users from "./features/users";
-import * as Mocks from './features/mocks';
+import TasksFeature from "./features/tasks";
+import UserFeature from "./features/users";
+import MockFeature from './features/mocks';
 import { IDatabase } from "./database";
 
 
@@ -29,12 +30,22 @@ export function init(configs: IServerConfigurations, database: IDatabase) {
         console.log(`Register Plugin ${plugin.info().name} v${plugin.info().version}`);
         promises.push(plugin.register(server, pluginOptions));
     });
+
+    //declare features here...
+    let features = [
+        TasksFeature,
+        MockFeature,
+        UserFeature
+    ];
+    
+    let instances:IFeature[] = [];
+    features.forEach((Feature,i)=>{
+        instances.push(new Feature(server, configs, database));
+    });
+
     Promise.all(promises)
         .then(() => {
-            //Init Features
-            Tasks.init(server, configs, database);
-            Users.init(server, configs, database);
-            Mocks.init(server, configs, database);
+            instances.forEach(instance=>instance.init());   
         });
     return server;
 };
