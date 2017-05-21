@@ -4,7 +4,8 @@ Boilerplate template for node and typescript services.
 
 **Installation**
 
-* *npm run setup* (install nuget packages & typings)
+* *npm install*
+* you should have gulp installed globally
 
 **Run**
 
@@ -12,13 +13,14 @@ Boilerplate template for node and typescript services.
 * *gulp test* (run mocha tests)
 * *gulp tslint* (run tslint)
 * *gulp watch* (watch ts files)
+* *npm run start:dev* (start server and watch for changes)
 * *npm run start* (start the application)
 * *npm run watch* (restart the application when files change)
 
 **Features**
-
+* *All packages upgraded to latest as of 5/21/2017*
 * *Project Structure - Feature oriented*
-* *Hapijs - REST Api*
+* *Hapijs - REST Api* (upgraded to 16.1.1)
 * *Swagger - documentation*
 * *Jwt - authentication*
 * *Mongoose - MongoDb*
